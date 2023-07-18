@@ -19,8 +19,9 @@ col3.metric("Tasa Paralelo", Tasa_Paralelo('https://monitordolarvenezuela.com').
 #col3.metric("Excedente " + rv.dia ,rv.reserva )
 
 with col1:
+    st.markdown("***")
     st.markdown('### Precios Binance')
-    st.dataframe(df1.loc[df1['Tipo'] == Tipo_de_orden],width=500, height=268)
+    st.dataframe(df1.loc[df1['Tipo'] == Tipo_de_orden],width=500, height=220)
 
 fig1, (ax1 , ax2) = plt.subplots(2,1, figsize=(6, 3))
 ax1.plot( 'Semana','LIQUIDEZ', color = 'blue',data = liq)
@@ -30,5 +31,6 @@ ax2.set_title('Variacion Liquidez Bancaria - Ultima Variacion: {:,}%'.format(rou
 fig1.tight_layout()
 
 with col2:
+    st.markdown("***")
     st.pyplot(fig1)
 
