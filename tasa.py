@@ -31,3 +31,10 @@ class liquidity:
         self.df['Semana'] = self.df['Semana'].astype(str).apply(lambda x: x[:10])
         self.df['Semana'] = self.df['Semana'].apply(lambda x: x.replace('-','/'))
         self.df['Semana'] = self.df['Semana'].apply(create_datetime)
+
+class Tasa_Paralelo:
+    def __init__(self, url):
+        self.r = requests.get(url)
+        self.soup =  BeautifulSoup(self.r.content, 'html.parser')
+        self.prom = self.soup.find_all(id="promedios")
+        self.usd = self.prom[0].find_all('p')[2].text.strip()[5:].replace(',','.')
