@@ -55,10 +55,12 @@ class prices:
         self.dfs = []
         for i in range(len( self.Methods )):
             k = get_data(self.Methods[i],'BUY')
-            j = pd.DataFrame(data = {'Banco': [self.Nombres[i]] ,'Tipo':['BUY'],'USDT Disponible': [k['tradableQuantity'].astype(float).sum()],'Precio': [k['price'].astype('float').mean()]})
+            j = pd.DataFrame(data = {'Banco': [self.Nombres[i]] ,'Tipo':['BUY'],'USDT Disponible': [k['tradableQuantity'].astype(float).sum()],
+                                     'Precio': [k['price'].astype('float').mean()],'Precio Max':[k['price'].astype('float').max()],'Precio Min':[k['price'].astype('float').min()] })
             self.dfs.append(j)
         for i in range(len( self.Methods )):
             k = get_data(self.Methods[i],'SELL')
-            j = pd.DataFrame(data = {'Banco': [self.Nombres[i]] ,'Tipo':['SELL'],'USDT Disponible': [k['tradableQuantity'].astype(float).sum()],'Precio': [k['price'].astype('float').mean()]})
+            j = pd.DataFrame(data = {'Banco': [self.Nombres[i]] ,'Tipo':['SELL'],'USDT Disponible': [k['tradableQuantity'].astype(float).sum()],
+                                     'Precio': [k['price'].astype('float').mean()],'Precio Max':[k['price'].astype('float').max()],'Precio Min':[k['price'].astype('float').min()]})
             self.dfs.append(j)
         self.df = pd.concat(self.dfs)
