@@ -3,7 +3,7 @@ import numpy as np
 import requests
 import json
 
-
+#binance 
 def get_data(methods,compra_venta):
     j = 1
     i = 1
