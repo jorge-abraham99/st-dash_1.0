@@ -32,9 +32,9 @@ col4.metric("Spread Paralelo/Oficial" ,str(round(Spread - 1, 4) * 100) + '%')
 with col1:
     st.markdown("***")
     st.markdown('### Precios Binance')
-    st.dataframe(df1,width=550, height=220)
+    st.dataframe(df1,width=550, height=220,hide_index=True)
     st.markdown("### Indicadores Internacionales")
-    st.dataframe(Bloom.create_df(),width=550, height=220)
+    st.dataframe(Bloom.create_df(),width=550, height=220,hide_index=True)
 
 fig1, (ax1 , ax2) = plt.subplots(2,1, figsize=(6, 3))
 ax1.plot( 'Semana','LIQUIDEZ', color = 'blue',data = liq)
