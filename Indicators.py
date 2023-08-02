@@ -1,12 +1,13 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime
 from binance import prices
 from tasa import Tasa_BCV, reservas_excedentes,liquidity,Tasa_Paralelo
 from terminal import FreeTerminal
 
 #rv = reservas_excedentes('https://www.bcv.org.ve/sites/default/files/EstadisticasGeneral/1_1_4.xls')
-liq = liquidity('https://www.bcv.org.ve/sites/default/files/indicadores_sector_monetario/liquidez_monetaria_semanal1.xls').df
+liq = liquidity('https://www.bcv.org.ve/sites/default/files/indicadores_sector_monetario/liquidez_monetaria_semanal1.xls')
 df1 = prices().df
 
 Bloom = FreeTerminal(['ETHUSDT','BTCUSDT'],['EURUSD=X','CL=F','^GSPC','GC=F'])
@@ -16,16 +17,16 @@ page_title = 'Indicadores en Tiempo Real', page_icon = 'Active',
 layout = 'wide')
 
 Tipo_de_orden = st.sidebar.selectbox('Tipo de Operacion', ('SELL', 'BUY'))
-
+Fecha_Liq = st.sidebar.text_input('Fecha de Inicio','01/01/2023')
 df1 = df1.loc[df1['Tipo'] == Tipo_de_orden]
-
+liq = liq.get_data(Fecha_Liq)
 
 col1, col2,col3,col4 = st.columns([0.4,0.4,0.1,0.1])
 col1.metric("Tasa BCV ", Tasa_BCV('https://www.bcv.org.ve').usd)
 col2.metric("Tasa BCV EUR", Tasa_BCV('https://www.bcv.org.ve').eur)
-col3.metric("Tasa Paralelo", Tasa_Paralelo('https://monitordolarvenezuela.com').usd)
-Spread = float(Tasa_Paralelo('https://monitordolarvenezuela.com').usd) / float(Tasa_BCV('https://www.bcv.org.ve').usd)
-col4.metric("Spread Paralelo/Oficial" ,str(round(Spread - 1, 4) * 100) + '%')
+#col3.metric("Tasa Paralelo", Tasa_Paralelo('https://monitordolarvenezuela.com').usd)
+#Spread = float(Tasa_Paralelo('https://monitordolarvenezuela.com').usd) / float(Tasa_BCV('https://www.bcv.org.ve').usd)
+#col4.metric("Spread Paralelo/Oficial" ,str(round(Spread - 1, 4) * 100) + '%')
 #col3.metric("Excedente " + rv.dia ,rv.reserva )
 
 

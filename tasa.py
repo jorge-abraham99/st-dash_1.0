@@ -31,7 +31,10 @@ class liquidity:
         self.df['Semana'] = self.df['Semana'].astype(str).apply(lambda x: x[:10])
         self.df['Semana'] = self.df['Semana'].apply(lambda x: x.replace('-','/'))
         self.df['Semana'] = self.df['Semana'].apply(create_datetime)
-
+    def get_data(self,fecha):
+        self.fecha = fecha
+        return self.df.loc[self.df['Semana'] > create_datetime(fecha)]
+   
 class Tasa_Paralelo:
     def __init__(self, url):
         self.r = requests.get(url)
