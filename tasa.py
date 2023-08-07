@@ -41,3 +41,21 @@ class Tasa_Paralelo:
         self.soup =  BeautifulSoup(self.r.content, 'html.parser')
         self.prom = self.soup.find_all(id="promedios")
         self.usd = self.prom[0].find_all('p')[2].text.strip()[5:].replace(',','.')
+
+class Paralelo_Telegram:
+    def __init__(self, url):
+        self.r = requests.get(url)
+        self.soup =  BeautifulSoup(self.r.content, 'html.parser')
+        self.message = self.soup.find_all('div','tgme_widget_message_text js-message_text')
+    def get_prices(self):
+        a = []
+        for i in self.message:
+            if '🗓' in i.text:
+                a.append(i.text)
+        b = []
+        for i in a:
+            if len(i) < 48:
+                b.append({'Fecha':i[2:10],'Hora':i[14:18],'Precio':i[27:32].replace(',','.') })
+            else:
+                b.append({'Fecha':i[2:10],'Hora':i[14:19],'Precio':i[28:33].replace(',','.') })
+        return b
