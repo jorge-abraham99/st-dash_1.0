@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 from datetime import datetime
+import re 
 
 class Tasa_BCV:
     def __init__(self, url):
@@ -41,21 +42,26 @@ class Tasa_Paralelo:
         self.soup =  BeautifulSoup(self.r.content, 'html.parser')
         self.prom = self.soup.find_all(id="promedios")
         self.usd = self.prom[0].find_all('p')[2].text.strip()[5:].replace(',','.')
-
+def finder(list_,item,item2 = 0):
+    if item2 == 0:
+        for i in range(len(list_)):
+            if list_[i] == item:
+                return i 
+    else:
+        for i in range(len(list_)):
+            if list_[i] == item or list_[i] == item2 :
+                return i
 class Paralelo_Telegram:
     def __init__(self, url):
         self.r = requests.get(url)
         self.soup =  BeautifulSoup(self.r.content, 'html.parser')
         self.message = self.soup.find_all('div','tgme_widget_message_text js-message_text')
     def get_prices(self):
-        a = []
+        a = {'Dolar':[],'Fecha':[]}
         for i in self.message:
             if '🗓' in i.text:
-                a.append(i.text)
-        b = []
-        for i in a:
-            if len(i) < 48:
-                b.append({'Fecha':i[2:10],'Hora':i[14:18],'Precio':i[27:32].replace(',','.') })
-            else:
-                b.append({'Fecha':i[2:10],'Hora':i[14:19],'Precio':i[28:33].replace(',','.') })
-        return b
+                j = i.text[finder(i.text,'💵'):finder(i.text,'🔻','🔺')]
+                a['Dolar'].append(float(re.sub("\D", "",j))/100)
+                k = i.text[finder(i.text,'🗓'):finder(i.text,'🕒')]
+                a['Fecha'].append(k[2:])
+        return a

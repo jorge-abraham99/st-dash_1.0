@@ -13,8 +13,8 @@ df1 = prices().df
 
 Bloom = FreeTerminal(['ETHUSDT','BTCUSDT'],['EURUSD=X','CL=F','^GSPC','GC=F'])
 
-Paralelo_fecha = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()[-1]['Fecha']
-Paralelo_precio = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()[-1]['Precio']
+Paralelo_fecha = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()["Fecha"][-1]
+Paralelo_precio = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()['Dolar'][-1]
 st.set_page_config(
 page_title = 'Indicadores en Tiempo Real', page_icon = 'Active',
 layout = 'wide')
@@ -59,6 +59,6 @@ fig1.tight_layout()
 
 
 with col2:
-    st.markdown("***")
-    st.pyplot(fig1)
+   st.markdown("***")
+   st.pyplot(fig1)
 
