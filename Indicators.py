@@ -14,7 +14,7 @@ df1 = prices().df
 Bloom = FreeTerminal(['ETHUSDT','BTCUSDT'],['EURUSD=X','CL=F','^GSPC','GC=F'])
 
 Paralelo_fecha = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()["Fecha"][-1]
-Paralelo_precio = Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()['Dolar'][-1]
+Paralelo_precio = round(Paralelo_Telegram('https://t.me/s/enparalelovzlatelegram').get_prices()['Dolar'][-1],2)
 st.set_page_config(
 page_title = 'Indicadores en Tiempo Real', page_icon = 'Active',
 layout = 'wide')
@@ -39,12 +39,6 @@ with col1:
     st.markdown("### Indicadores Internacionales")
     st.dataframe(Bloom.create_df(),width=550, height=220,hide_index=True)
 
-#fig1, (ax1 , ax2) = plt.subplots(2,1, figsize=(6, 3))
-#ax1.plot( 'Semana','LIQUIDEZ', color = 'blue',data = liq)
-#ax1.set_title('Liquidez Bancaria - Liquidez Actual: {:,}'.format(round(liq['LIQUIDEZ'][0],2)))
-#ax2.plot( 'Semana','VARIACIÓN', color = 'red',data = liq)
-#ax2.set_title('Variacion Liquidez Bancaria - Ultima Variacion: {:,}%'.format(round(liq['VARIACIÓN'][0],2)))
-#fig1.tight_layout()
 
 sns.set()
 fig1, axes = plt.subplots(2,1, figsize=(6, 3))

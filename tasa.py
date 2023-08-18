@@ -42,14 +42,14 @@ class Tasa_Paralelo:
         self.soup =  BeautifulSoup(self.r.content, 'html.parser')
         self.prom = self.soup.find_all(id="promedios")
         self.usd = self.prom[0].find_all('p')[2].text.strip()[5:].replace(',','.')
-def finder(list_,item,item2 = 0):
+def finder(list_,item,item2 = 0,item3 = 0):
     if item2 == 0:
         for i in range(len(list_)):
             if list_[i] == item:
                 return i 
     else:
         for i in range(len(list_)):
-            if list_[i] == item or list_[i] == item2 :
+            if list_[i] == item or list_[i] == item2 or list_[i] == item3  :
                 return i
 class Paralelo_Telegram:
     def __init__(self, url):
@@ -60,7 +60,7 @@ class Paralelo_Telegram:
         a = {'Dolar':[],'Fecha':[]}
         for i in self.message:
             if '🗓' in i.text:
-                j = i.text[finder(i.text,'💵'):finder(i.text,'🔻','🔺')]
+                j = i.text[finder(i.text,'💵'):finder(i.text,'🔻','🔺','🟰')]
                 a['Dolar'].append(float(re.sub("\D", "",j))/100)
                 k = i.text[finder(i.text,'🗓'):finder(i.text,'🕒')]
                 a['Fecha'].append(k[2:])
