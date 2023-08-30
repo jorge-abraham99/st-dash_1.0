@@ -50,7 +50,7 @@ def get_data(methods,compra_venta):
 
 class prices:
     def __init__(self):
-        self.Methods = [['BankVenezuela','BancoDeVenezuela'],['Mercantil'],['Banesco'],['Provincial'],['Bancamiga']]
+        self.Methods = [['SpecificBank'],['Mercantil'],['Banesco'],['Provincial'],['Bancamiga']]
         self.Nombres = [ 'BDV', 'Mercantil','Banesco','Provincial','Bancamiga']
         self.dfs = []
         for i in range(len( self.Methods )):
